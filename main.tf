@@ -1,7 +1,14 @@
 # Create a Resource Group
 resource azurerm_resource_group main {
-  name     = "rg-${replace(var.name," ","")}"
-  location = var.location
+  name     = "rg-${replace(title(var.application_full_name)," ","")}-${var.application_environment}"
+  location = var.azure_location
+
+  tags = {
+    application-full-name   = var.application_full_name
+    application-short-name  = var.application_short_name
+    application-environment = var.application_environment
+  }
+
 }
 
 # Assign contributor role to this Resource Group
